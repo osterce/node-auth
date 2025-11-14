@@ -13,10 +13,11 @@ export class RegisterUserDto {
     const { name, email, password } = object;
 
     if( !name ) return ['Missing name'];
+    if( !Validators.userName.test(name) ) return ['Name is not valid'];
     if( !email ) return ['Missing email'];
-    if( !Validators.email.test(email) ) return ['Email is not valid'];
+    if( !Validators.userEmail.test(email) ) return ['Email is not valid'];
     if( !password ) return ['Missing password'];
-    if( password.length < 6 ) return ['Password must be at least 6 characters long'];
+    if( !Validators.userPassword.test(password) ) return ['Password is not valid'];
 
     return[
       undefined,
