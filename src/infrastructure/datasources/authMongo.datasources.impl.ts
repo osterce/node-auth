@@ -2,7 +2,15 @@ import { BcryptAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
 import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from "../../domain";
 
+type HashPassword = (password: string) => string;
+type ComparePassword = (password: string, hashedPassword: string) => boolean;
+
 export class MongoDataSourcesImpl implements AuthDataSource {
+
+  constructor(
+    private readonly hashPassword: HashPassword = BcryptAdapter.hash,
+    private readonly comparePassword: ComparePassword = BcryptAdapter.compare
+  ) {}
 
   async register(registerUserDto: RegisterUserDto): Promise<UserEntity> {
 
@@ -18,7 +26,7 @@ export class MongoDataSourcesImpl implements AuthDataSource {
       const user = await UserModel.create({
         name,
         email,
-        password: BcryptAdapter.hash(password)
+        password: this.hashPassword(password)
       });
 
       await user.save();
