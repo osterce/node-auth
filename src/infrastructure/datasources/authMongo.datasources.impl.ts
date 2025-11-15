@@ -1,6 +1,7 @@
 import { BcryptAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
 import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from "../../domain";
+import { UserMapper } from "../mappers/user.mapper";
 
 type HashPassword = (password: string) => string;
 type ComparePassword = (password: string, hashedPassword: string) => boolean;
@@ -33,13 +34,7 @@ export class MongoDataSourcesImpl implements AuthDataSource {
 
       //3. Mapear el DTO a una entidad
       //Todo: falta un mapper
-      return new UserEntity(
-        user._id.toString(),
-        name,
-        email,
-        user.password,
-        user.role
-      )
+      return UserMapper.userEntityFromObject(user);
 
     } catch (error) {
 
