@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema<UserEntity>({
   img: {
     type: String,
   },
-  role: {
+  roles: {
     type: [String],
     default: ['USER_ROLE'],
     enum: ['ADMIN_ROLE', 'USER_ROLE'],

@@ -2,7 +2,7 @@ export class Validators {
 
   static get userName() {
     //nombre de usuario: letras (mayúsculas y minúsculas), entre 2 y 40 caracteres.
-    return /^[a-zA-ZÀ-ÿ\s]{2,40}$/;
+    return /^[a-zA-Z0-9._-]{2,40}$/;
   }
 
   static get userEmail() {

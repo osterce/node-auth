@@ -22,7 +22,7 @@ export class RegisterUserDto {
     return[
       undefined,
       new RegisterUserDto(
-        name,
+        name.toLowerCase(),
         email.toLowerCase(),
         password,
       )
