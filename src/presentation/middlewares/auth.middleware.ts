@@ -18,6 +18,7 @@ export class AuthMiddleware {
       const user = await UserModel.findById(payload.id);
       if (!user) return res.status(401).json({ error: 'User not found' });
 
+      if (!req.body) req.body = {};
       req.body.user = user;
       next();
     } catch (error) {
